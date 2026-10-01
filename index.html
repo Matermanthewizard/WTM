@@ -190,6 +190,78 @@
  }
 }
 </script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Do you come to us?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. We are a fully mobile service. We install, repair and inspect at your yard, shop or job site anywhere in Ontario, and we travel to fleets across Canada and the United States."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which telematics and dash camera brands do you install?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "All major brands, including Samsara, Geotab, Lytx, Motive and Fleet Command Center. We handle GPS trackers, ELDs, AI dash cameras, backup and side cameras, and auxiliary inputs like PTO, door and temperature sensors."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Do you wire and calibrate plows and salt spreaders?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. We wire plow controllers, clean up and troubleshoot spreader harnesses, and calibrate spreader controllers from Rexroth, DICKEY-john, Force America, Cirus and Muncie, along with brine and anti-icing systems."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can you fix or remove another company's install?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. We inspect, clean up, repair or remove telematics, camera and lighting installs done by other companies, and rewire them properly."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How big a fleet do you work on?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One truck or a full fleet rollout. We work on pickups, vans, school buses, transit buses, highway tractors, plow trucks, bucket trucks, heavy equipment, trailers and UTVs."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Are you available after hours?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. We are available 24/7. Call or text (613) 299-9446 anytime and you will reach us directly, not a call centre."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Do you install two-way radios and lighting?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. We install mobile two-way radios, antennas and outside speakers, plus light bars, strobes, beacons, work lights, inverters, signal boosters and Starlink mounts."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Do you work in French?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. We work in English and French."
+   }
+  }
+ ]
+}
+</script>
 <style>
 
   /* Centered page. Every block of information sits in a box; boxes line up left to right on computers and stack on phones. */
@@ -364,6 +436,17 @@
   @media (prefers-reduced-motion: reduce) { .track { scroll-behavior: auto; } }
   figure { margin: 0; }
   figcaption { margin-top: 10px; font-size: var(--fs-small); color: var(--muted); }
+
+
+  /* FAQ */
+  .faq { display: grid; gap: 12px; max-width: 860px; margin: 0 auto; text-align: left; }
+  .faq-item { padding: 0; }
+  .faq-item summary { cursor: pointer; list-style: none; padding: 18px 20px; font-weight: 600; font-size: var(--fs-body); display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; color: #F5A64A; font-size: 24px; line-height: 1; flex: 0 0 auto; }
+  .faq-item[open] summary::after { content: "\2212"; }
+  .faq-item summary:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; border-radius: 10px; }
+  .faq-item p { padding: 0 20px 18px; color: var(--soft); }
 
   /* About */
   .about .photo::before { padding-top: 80%; }
@@ -717,6 +800,26 @@
           <span class="scroll-count" id="work-count" aria-live="polite">1 / 53</span>
           <button class="nav-btn" type="button" id="work-next" aria-label="Next photos" aria-controls="work-track"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
         </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <p class="label">Common questions</p>
+      <h2>Fleet installs, answered</h2>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="faq">
+          <details class="box faq-item"><summary>Do you come to us?</summary><p>Yes. We are a fully mobile service. We install, repair and inspect at your yard, shop or job site anywhere in Ontario, and we travel to fleets across Canada and the United States.</p></details>
+          <details class="box faq-item"><summary>Which telematics and dash camera brands do you install?</summary><p>All major brands, including Samsara, Geotab, Lytx, Motive and Fleet Command Center. We handle GPS trackers, ELDs, AI dash cameras, backup and side cameras, and auxiliary inputs like PTO, door and temperature sensors.</p></details>
+          <details class="box faq-item"><summary>Do you wire and calibrate plows and salt spreaders?</summary><p>Yes. We wire plow controllers, clean up and troubleshoot spreader harnesses, and calibrate spreader controllers from Rexroth, DICKEY-john, Force America, Cirus and Muncie, along with brine and anti-icing systems.</p></details>
+          <details class="box faq-item"><summary>Can you fix or remove another company&#x27;s install?</summary><p>Yes. We inspect, clean up, repair or remove telematics, camera and lighting installs done by other companies, and rewire them properly.</p></details>
+          <details class="box faq-item"><summary>How big a fleet do you work on?</summary><p>One truck or a full fleet rollout. We work on pickups, vans, school buses, transit buses, highway tractors, plow trucks, bucket trucks, heavy equipment, trailers and UTVs.</p></details>
+          <details class="box faq-item"><summary>Are you available after hours?</summary><p>Yes. We are available 24/7. Call or text (613) 299-9446 anytime and you will reach us directly, not a call centre.</p></details>
+          <details class="box faq-item"><summary>Do you install two-way radios and lighting?</summary><p>Yes. We install mobile two-way radios, antennas and outside speakers, plus light bars, strobes, beacons, work lights, inverters, signal boosters and Starlink mounts.</p></details>
+          <details class="box faq-item"><summary>Do you work in French?</summary><p>Yes. We work in English and French.</p></details>
       </div>
     </div>
   </section>
