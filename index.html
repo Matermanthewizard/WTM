@@ -579,12 +579,12 @@
       <div class="row contact-row">
         <div class="box">
           <div id="thanks" class="thanks" role="status" tabindex="-1"><b>Got it.</b> We'll get back to you as soon as possible.</div>
-          <form id="contact-form" action="https://formsubmit.co/materman@wizardstelematics.com" method="POST">
-              <input type="hidden" name="_subject" value="New website message - Wizards Telematics">
-              <input type="hidden" name="_template" value="table">
-              <input type="hidden" name="_captcha" value="false">
-              <input type="hidden" name="_next" value="https://wizardstelematics.com/#thanks">
-              <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+              <input type="hidden" name="access_key" value="38ea9c65-71b5-4db2-9e85-7cba64fe9211">
+              <input type="hidden" name="subject" value="New website message - Wizards Telematics">
+              <input type="hidden" name="from_name" value="wizardstelematics.com">
+              <input type="hidden" name="redirect" value="https://wizardstelematics.com/#thanks">
+              <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
               <div class="row2">
                 <div><label for="name">Name</label><input id="name" name="name" autocomplete="name" required></div>
                 <div><label for="company">Company <small>(optional)</small></label><input id="company" name="company" autocomplete="organization"></div>
@@ -612,7 +612,7 @@
                 </div>
               </fieldset>
               <div><label for="message">What do you need done?</label><textarea id="message" name="message" placeholder="How many vehicles, what they need (install, inspection, repair or removal), and where they are." required></textarea></div>
-              <p id="form-error" class="form-error" role="alert">That didn't send. Please call or text (613) 299-9446.</p>
+              <p id="form-error" class="form-error" role="alert">That didn't send. Please call or text <a href="tel:+16132999446">(613) 299-9446</a>, or <a id="form-mailto" href="mailto:materman@wizardstelematics.com">email your message to us</a>.</p>
               <button id="send" class="btn btn-call" type="submit">Send</button>
           </form>
         </div>
@@ -734,8 +734,14 @@
       var t = document.getElementById('thanks');
       err.className = 'form-error';
       btn.disabled = true; btn.textContent = 'Sending...';
-      fetch('https://formsubmit.co/ajax/materman@wizardstelematics.com', { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
-        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      var fd = new FormData(form), data = {}, svc = [];
+      fd.forEach(function (v, k) { if (k === 'services') { svc.push(v); } else { data[k] = v; } });
+      data.services = svc.length ? svc.join(', ') : 'None selected';
+      var body = 'Name: ' + (data.name || '') + '\nCompany: ' + (data.company || '') + '\nPhone: ' + (data.phone || '') + '\nServices: ' + data.services + '\n\n' + (data.message || '');
+      document.getElementById('form-mailto').href = 'mailto:materman@wizardstelematics.com?subject=' + encodeURIComponent('Website message') + '&body=' + encodeURIComponent(body);
+      if (data.email) data.replyto = data.email;
+      fetch('https://api.web3forms.com/submit', { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' } })
+        .then(function (r) { return r.json().then(function (j) { if (!r.ok || !j.success) throw new Error(j.message || r.status); return j; }); })
         .then(function () { form.reset(); form.style.display = 'none'; t.className = 'thanks show'; t.focus(); })
         .catch(function () { err.className = 'form-error show'; btn.disabled = false; btn.textContent = 'Send'; });
     });
