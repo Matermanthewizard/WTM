@@ -296,12 +296,12 @@
 
   /* Header */
   .site-head { position: sticky; top: 0; z-index: 10; background: rgba(0, 0, 0, 0.94); padding-top: env(safe-area-inset-top, 0px); }
-  .head { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; padding-block: 6px; }
+  .head { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 12px; padding-block: 6px; }
   .menu-left { justify-self: start; }
   .head-contact { justify-self: end; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
   .head-num { color: #F5A64A; font-weight: 700; text-decoration: none; white-space: nowrap; font-size: 14px; }
-  .head-icons { display: flex; gap: 8px; }
-  .ic { width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #fff; }
+  .head-icons { display: flex; gap: 6px; }
+  .ic { width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #fff; }
   .ic svg { width: 17px; height: 17px; fill: currentColor; }
   .ic-call { background: #E07B1A; }
   .ic-text { background: #1F6FB2; }
@@ -310,9 +310,9 @@
   .logo { justify-self: center; display: block; }
   .menu { display: flex; align-items: center; gap: 24px; }
   .menu a { color: #F7F4EC; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; min-height: 44px; }
-  .menu a:not(.head-phone) { display: none; }
+  .menu-left a { display: none; }
   .menu a:hover { color: #F5A64A; }
-  @media (min-width:900px) { .head-contact { flex-direction: row; align-items: center; gap: 14px; } .head-num { font-size: 18px; } .ic { width: 38px; height: 38px; } .ic svg { width: 20px; height: 20px; } }
+  @media (min-width:900px) { .head-contact { flex-direction: row; align-items: center; gap: 14px; } .head-num { font-size: 18px; } .ic { width: 38px; height: 38px; } .head-icons { gap: 8px; } .ic svg { width: 20px; height: 20px; } }
   .logo img { height: 64px; width: auto; display: block; }
   .bars-full { display: flex; height: 3px; }
   .bars-full i { flex: 1; }
@@ -326,7 +326,7 @@
   /* Sections */
   section { padding-block: 52px; scroll-margin-top: 86px; }
   section.alt { background: var(--alt); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  h2 { font-weight: 800; font-size: var(--fs-h2); line-height: 1.2; margin-bottom: 28px; }
+  h2 { font-weight: 800; font-size: var(--fs-h2); line-height: 1.2; margin-bottom: 28px; text-wrap: balance; }
   h3 { font-weight: 600; font-size: var(--fs-h3); line-height: 1.3; }
 
   /* Orange section label and short rule under each heading group */
@@ -394,7 +394,9 @@
   .consult { padding: 28px 24px; }
   .consult .line + .line { margin-top: 6px; }
   .who { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); font-size: var(--fs-small); color: var(--muted) !important; }
-  .section-intro { color: var(--soft); margin: -12px auto 28px; max-width: 760px; text-align: left; }
+  .h2-split span { white-space: nowrap; }
+  @media (max-width: 899px) { .h2-split span { display: block; } .h2-split { font-size: min(var(--fs-h2), 6.6vw); } }
+  .section-intro { color: var(--soft); margin: -12px auto 28px; max-width: 760px; text-align: center; }
   .who-line { margin-top: 20px; font-size: var(--fs-small); color: var(--muted); }
   ol .box { padding-inline: 12px; }
 
@@ -462,6 +464,7 @@
   /* About */
   .about .photo::before { padding-top: 80%; }
   .about .text { display: grid; align-content: center; gap: 4px; text-align: left; padding-inline: 28px; }
+  .about .text p + p { margin-top: 12px; }
   .sig { margin-top: 12px; color: var(--text) !important; font-weight: 600; }
   .sig span { display: block; font-weight: 400; font-size: var(--fs-small); color: var(--muted); }
 
@@ -507,6 +510,8 @@
   /* Phone call bar */
   .callbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; gap: 8px; padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px)); background: rgba(23, 24, 27, 0.97); border-top: 1px solid var(--line); }
   .callbar .btn { flex: 1; min-height: 50px; }
+  .callbar { transition: transform .25s ease; }
+  .callbar.away { transform: translateY(110%); }
 
   .proof { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   @media (min-width: 640px) {
@@ -519,7 +524,7 @@
     :root { --fs-h1: 56px; --fs-h2: 34px; --fs-h3: 21px; --fs-body: 18px; --fs-small: 15px; }
     h2 { margin-bottom: 36px; }
     .logo img { height: 88px; }
-    .menu a:not(.head-phone) { display: inline; }
+    .menu a { display: inline-flex; }
       .hero { padding-block: 36px 64px; }
     .hero .photo::before { padding-top: 36%; }
     .proof { grid-template-columns: repeat(4, 1fr); }
@@ -684,7 +689,7 @@
   <section id="consulting" class="alt">
     <div class="wrap">
       <p class="label">New service</p>
-      <h2>Fleet Technology Consulting and Management</h2>
+      <h2 class="h2-split"><span>Fleet Technology</span> <span>Consulting and Management</span></h2>
       <p class="section-intro"><span class="line">Not sure which tracking or camera system is right for your fleet, or paying for one that isn't working the way it should?</span><span class="line">We help you figure it out.</span></p>
       <div class="rule" aria-hidden="true"></div>
       <div class="row cols-3">
@@ -850,7 +855,8 @@
       <div class="row cols-2 about">
         <div class="photo"><img src="photos/crew.jpg" alt="WTM work truck, a black GMC pickup, at sunset"></div>
         <div class="box text">
-          <p><span class="line">WTM is based in Haley Station, Ontario.</span><span class="line">We're installation technicians who take the work personally.</span><span class="line">We have over 10 years in the field.</span><span class="line">We work on every kind of fleet asset.</span><span class="line">We work across all of Ontario, from the Ottawa Valley to the GTA, Northern and Southwestern Ontario.</span><span class="line">We also travel to fleets across Canada and the United States.</span></p>
+          <p>WTM is based in Haley Station, Ontario. We're installation technicians who take the work personally, with over 10 years in the field on every kind of fleet asset.</p>
+          <p>We work across all of Ontario, from the Ottawa Valley to the GTA, Northern and Southwestern Ontario, and we travel to fleets across Canada and the United States.</p>
           <p class="sig">Jacob Materman<span>Owner</span></p>
         </div>
       </div>
@@ -862,7 +868,7 @@
     <div class="wrap">
       <p class="label">Get in touch</p>
       <h2>Contact us</h2>
-      <p class="contact-intro"><span class="line">Call, text or email: <a href="tel:+16132999446" style="display:inline-block;padding:8px 0">(613) 299-9446</a> · <a href="mailto:materman@wizardstelematics.com" style="display:inline-block;padding:8px 0">materman@wizardstelematics.com</a></span><span class="line">Or fill out this form, and we'll get back to you as soon as possible.</span></p>
+      <p class="contact-intro"><span class="line">Call or text <a href="tel:+16132999446" style="display:inline-block;padding:6px 0">(613) 299-9446</a></span><span class="line">Email <a href="mailto:materman@wizardstelematics.com" style="display:inline-block;padding:6px 0">materman@wizardstelematics.com</a></span><span class="line">Or fill out this form, and we'll get back to you as soon as possible.</span></p>
       <div class="rule" aria-hidden="true"></div>
       <div class="row contact-row">
         <div class="box">
@@ -923,11 +929,17 @@
 </footer>
 
 <div class="callbar">
-  <a class="btn btn-call" href="tel:+16132999446">Call</a>
-  <a class="btn btn-ghost" href="#contact">Contact us</a>
+  <a class="btn btn-call" href="#contact">Request a quote</a>
 </div>
 
 <script>
+  // Hide the bottom quote bar while the contact form is on screen.
+  (function () {
+    var bar = document.querySelector('.callbar'), c = document.getElementById('contact');
+    if (bar && c && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { bar.classList.toggle('away', e[0].isIntersecting); }, { threshold: 0.05 }).observe(c);
+    }
+  })();
   // Photos: show each one once its file exists in /photos; otherwise the tile stays plain.
   var imgs = document.querySelectorAll('.photo img');
   for (var i = 0; i < imgs.length; i++) {
